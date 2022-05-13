@@ -56,11 +56,4 @@ namespace Sorter.Infrastructure
             GC.SuppressFinalize(this);
         }
     }
-
-    public interface IFileHandler
-    {
-        void Write(object data);
-
-        T Read<T>();
-    }
 }
