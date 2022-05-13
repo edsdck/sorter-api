@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Sorter.Core.Interfaces;
+using Sorter.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,8 @@ builder.Services.AddApiVersioning(config =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ISortingService, SortingService>();
 
 var app = builder.Build();
 

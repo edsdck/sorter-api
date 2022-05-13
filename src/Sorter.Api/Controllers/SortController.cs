@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sorter.Api.Model;
+using Sorter.Core.Interfaces;
 
 namespace Sorter.Api.Controllers
 {
@@ -8,26 +9,19 @@ namespace Sorter.Api.Controllers
     [ApiController]
     public class SortController : ControllerBase
     {
+        private readonly ISortingService _sortingService;
+
+        public SortController(ISortingService sortingService)
+        {
+            _sortingService = sortingService;
+        }
+
         [HttpPost]
         public IActionResult Sort(SortDto dto)
         {
-            var swapped = true;
-            while (swapped)
-            {
-                swapped = false;
-                for (var i = 1; i <= dto.Numbers.Count-1; i++)
-                {
-                    if (dto.Numbers[i-1] > dto.Numbers[i])
-                    {
-                        var temp = dto.Numbers[i];
-                        dto.Numbers[i] = dto.Numbers[i-1];
-                        dto.Numbers[i-1] = temp;
-                        swapped = true;
-                    }
-                }
-            }
+            var sorted = _sortingService.Sort(dto.Numbers);
 
-            return Ok(dto.Numbers);
+            return Ok(sorted);
         }
 
         [HttpGet]
