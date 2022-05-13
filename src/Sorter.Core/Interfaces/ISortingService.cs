@@ -2,6 +2,8 @@
 {
     public interface ISortingService
     {
-        IList<long> Sort(IList<long> numbers);
+        List<long> SelectionSort(IList<long> numbers);
+
+        List<long> Sort(IList<long> numbers);
     }
 }

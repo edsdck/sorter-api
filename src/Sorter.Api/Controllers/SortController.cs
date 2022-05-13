@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sorter.Api.Model;
+using Sorter.Core.Domain;
 using Sorter.Core.Interfaces;
+using Sorter.Infrastructure;
 
 namespace Sorter.Api.Controllers
 {
@@ -23,7 +25,17 @@ namespace Sorter.Api.Controllers
         [HttpPost]
         public IActionResult Sort(SortDto dto)
         {
-            var sorted = _sortingService.Sort(dto.Numbers);
+            List<long> sorted = new();
+            if (dto.SortAlgorithm == SortAlgorithm.BubbleSort)
+            {
+                sorted = _sortingService.Sort(dto.Numbers);
+            }
+
+            if (dto.SortAlgorithm == SortAlgorithm.SelectionSort)
+            {
+                sorted = _sortingService.Sort(dto.Numbers);
+            }
+
             _fileHandler.Write(sorted);
 
             return Ok(sorted);
