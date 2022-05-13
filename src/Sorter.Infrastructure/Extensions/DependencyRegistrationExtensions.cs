@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sorter.Api;
-using Sorter.Core.Interfaces;
-using Sorter.Core.Services;
+using Sorter.Core.Interfaces.Sorting;
+using Sorter.Core.Services.Sorting;
 
 namespace Sorter.Infrastructure.Extensions
 {
@@ -13,9 +13,11 @@ namespace Sorter.Infrastructure.Extensions
             IConfiguration configuration)
         {
             serviceCollection.Configure<FileHandlingOptions>(configuration.GetSection(FileHandlingOptions.FileHandling));
-
             serviceCollection.AddSingleton<IFileHandler, FileHandler>();
-            serviceCollection.AddScoped<ISortingService, SortingService>();
+
+            serviceCollection.AddScoped<ISortContext, SortContext>();
+            serviceCollection.AddScoped<ISortStrategy, BubbleSortStrategy>();
+            serviceCollection.AddScoped<ISortStrategy, SelectionSortStrategy>();
 
             return serviceCollection;
         }

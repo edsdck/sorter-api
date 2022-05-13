@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sorter.Api.Model;
-using Sorter.Core.Domain;
-using Sorter.Core.Interfaces;
+using Sorter.Core.Interfaces.Sorting;
 using Sorter.Infrastructure;
 
 namespace Sorter.Api.Controllers
@@ -11,30 +10,21 @@ namespace Sorter.Api.Controllers
     [ApiController]
     public class SortController : ControllerBase
     {
-        private readonly ISortingService _sortingService;
         private readonly IFileHandler _fileHandler;
+        private readonly ISortContext _sortContext;
 
         public SortController(
-            ISortingService sortingService,
-            IFileHandler fileHandler)
+            IFileHandler fileHandler,
+            ISortContext sortContext)
         {
-            _sortingService = sortingService;
             _fileHandler = fileHandler;
+            _sortContext = sortContext;
         }
 
         [HttpPost]
         public IActionResult Sort(SortDto dto)
         {
-            List<long> sorted = new();
-            if (dto.SortAlgorithm == SortAlgorithm.BubbleSort)
-            {
-                sorted = _sortingService.Sort(dto.Numbers);
-            }
-
-            if (dto.SortAlgorithm == SortAlgorithm.SelectionSort)
-            {
-                sorted = _sortingService.Sort(dto.Numbers);
-            }
+            var sorted = _sortContext.SortByAlgorithm(dto.Numbers, dto.SortAlgorithm);
 
             _fileHandler.Write(sorted);
 
