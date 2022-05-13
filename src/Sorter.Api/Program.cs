@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Sorter.Api;
 using Sorter.Core.Interfaces;
 using Sorter.Core.Services;
 
@@ -17,6 +18,9 @@ builder.Services.AddApiVersioning(config =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<FileHandlingOptions>(builder.Configuration.GetSection(FileHandlingOptions.FileHandling));
+
+builder.Services.AddSingleton<IFileHandler, FileHandler>();
 builder.Services.AddScoped<ISortingService, SortingService>();
 
 var app = builder.Build();

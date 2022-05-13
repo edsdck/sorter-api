@@ -10,16 +10,21 @@ namespace Sorter.Api.Controllers
     public class SortController : ControllerBase
     {
         private readonly ISortingService _sortingService;
+        private readonly IFileHandler _fileHandler;
 
-        public SortController(ISortingService sortingService)
+        public SortController(
+            ISortingService sortingService,
+            IFileHandler fileHandler)
         {
             _sortingService = sortingService;
+            _fileHandler = fileHandler;
         }
 
         [HttpPost]
         public IActionResult Sort(SortDto dto)
         {
             var sorted = _sortingService.Sort(dto.Numbers);
+            _fileHandler.Write(sorted);
 
             return Ok(sorted);
         }
@@ -27,7 +32,9 @@ namespace Sorter.Api.Controllers
         [HttpGet]
         public IActionResult GetSorted()
         {
-            return Ok();
+            var result = _fileHandler.Read<IList<long>>();
+
+            return Ok(result);
         }
     }
 }
