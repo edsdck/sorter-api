@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Sorter.Api;
-using Sorter.Core.Interfaces;
-using Sorter.Core.Services;
+using Sorter.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +15,7 @@ builder.Services.AddApiVersioning(config =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.Configure<FileHandlingOptions>(builder.Configuration.GetSection(FileHandlingOptions.FileHandling));
-
-builder.Services.AddSingleton<IFileHandler, FileHandler>();
-builder.Services.AddScoped<ISortingService, SortingService>();
+builder.Services.RegisterApp(builder.Configuration);
 
 var app = builder.Build();
 

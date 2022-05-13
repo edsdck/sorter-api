@@ -1,7 +1,8 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Options;
+using Sorter.Api;
 
-namespace Sorter.Api
+namespace Sorter.Infrastructure
 {
     public class FileHandler : IFileHandler, IDisposable
     {
