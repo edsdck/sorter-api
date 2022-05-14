@@ -1,4 +1,4 @@
-﻿namespace Sorter.Infrastructure
+﻿namespace Sorter.Shared.Interfaces
 {
     public interface IFileManager
     {
