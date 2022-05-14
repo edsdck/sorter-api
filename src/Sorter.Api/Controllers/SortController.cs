@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sorter.Api.Model;
 using Sorter.Core.Interfaces.Sorting;
-using Sorter.Infrastructure;
+using Sorter.Shared.Interfaces;
 
 namespace Sorter.Api.Controllers
 {

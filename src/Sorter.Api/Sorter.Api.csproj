@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sorter.Core\Sorter.Core.csproj" />
     <ProjectReference Include="..\Sorter.Infrastructure\Sorter.Infrastructure.csproj" />
+    <ProjectReference Include="..\Sorter.Shared\Sorter.Shared.csproj" />
   </ItemGroup>
 
 </Project>

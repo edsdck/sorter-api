@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Sorter.Api.Extensions;
 using Sorter.Infrastructure.Extensions;
-using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 

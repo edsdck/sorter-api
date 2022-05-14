@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sorter.Core;
 using Sorter.Core.Interfaces.Sorting;
 using Sorter.Core.Services.Sorting;
+using Sorter.Shared.Interfaces;
+using Sorter.Shared.Options;
 
 namespace Sorter.Infrastructure.Extensions
 {

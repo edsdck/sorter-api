@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Options;
-using Sorter.Core;
+using Sorter.Shared.Interfaces;
+using Sorter.Shared.Options;
 
 namespace Sorter.Infrastructure
 {
