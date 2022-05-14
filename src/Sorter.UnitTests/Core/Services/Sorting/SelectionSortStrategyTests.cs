@@ -5,9 +5,9 @@ using Sorter.Core.Services.Sorting;
 namespace Sorter.UnitTests.Core.Services.Sorting
 {
     [TestFixture]
-    public class BubbleSortStrategyTests : BaseSortStrategyTest<BubbleSortStrategy>
+    public class SelectionSortStrategyTests : BaseSortStrategyTest<SelectionSortStrategy>
     {
-        public BubbleSortStrategyTests() : base(SortAlgorithm.BubbleSort)
+        public SelectionSortStrategyTests() : base(SortAlgorithm.SelectionSort)
         {
         }
     }
