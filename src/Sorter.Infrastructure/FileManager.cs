@@ -7,11 +7,11 @@ namespace Sorter.Infrastructure
     public class FileManager : IFileManager, IDisposable
     {
         private readonly ReaderWriterLockSlim _writeLock = new();
-        private readonly FileManagerOptions _fileHandlingOptions;
+        private readonly FileManagerOptions _fileManagerOptions;
 
         public FileManager(IOptions<FileManagerOptions> fileHandlingOptions)
         {
-            _fileHandlingOptions = fileHandlingOptions.Value;
+            _fileManagerOptions = fileHandlingOptions.Value;
         }
 
         public void Write(object data)
@@ -21,11 +21,11 @@ namespace Sorter.Infrastructure
 
             var serialized = JsonSerializer.Serialize(data);
 
-            _ = _writeLock.TryEnterWriteLock(_fileHandlingOptions.DefaultFileLockMs);
+            _ = _writeLock.TryEnterWriteLock(_fileManagerOptions.DefaultFileLockMs);
 
             try
             {
-                File.WriteAllText(_fileHandlingOptions.DefaultFileName, serialized);
+                File.WriteAllText(_fileManagerOptions.DefaultFileName, serialized);
             }
             finally
             {
@@ -35,19 +35,21 @@ namespace Sorter.Infrastructure
 
         public T Read<T>()
         {
-            _ = _writeLock.TryEnterReadLock(_fileHandlingOptions.DefaultFileLockMs);
+            _ = _writeLock.TryEnterReadLock(_fileManagerOptions.DefaultFileLockMs);
 
             var data = string.Empty;
             try
             {
-                data = File.ReadAllText(_fileHandlingOptions.DefaultFileName);
+                data = File.ReadAllText(_fileManagerOptions.DefaultFileName);
             }
             finally
             {
                 _writeLock.ExitReadLock();
             }
 
-            return JsonSerializer.Deserialize<T>(data);
+            return string.IsNullOrEmpty(data)
+                ? default
+                : JsonSerializer.Deserialize<T>(data);
         }
 
         public void Dispose()

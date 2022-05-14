@@ -2,7 +2,7 @@
 {
     public class FileManagerOptions
     {
-        public const string FileHandling = "FileHandling";
+        public const string FileManager = "FileManager";
 
         public int DefaultFileLockMs { get; set; }
 

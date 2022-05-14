@@ -12,7 +12,7 @@ namespace Sorter.Infrastructure.Extensions
             this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            serviceCollection.Configure<FileManagerOptions>(configuration.GetSection(FileManagerOptions.FileHandling));
+            serviceCollection.Configure<FileManagerOptions>(configuration.GetSection(FileManagerOptions.FileManager));
             serviceCollection.AddSingleton<IFileManager, FileManager>();
 
             serviceCollection.AddScoped<ISortProvider, SortProvider>();

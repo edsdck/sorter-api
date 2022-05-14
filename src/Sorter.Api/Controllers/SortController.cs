@@ -10,14 +10,14 @@ namespace Sorter.Api.Controllers
     [ApiController]
     public class SortController : ControllerBase
     {
-        private readonly IFileManager _fileHandler;
+        private readonly IFileManager _fileManager;
         private readonly ISortProvider _sortProvider;
 
         public SortController(
             IFileManager fileHandler,
             ISortProvider sortContext)
         {
-            _fileHandler = fileHandler;
+            _fileManager = fileHandler;
             _sortProvider = sortContext;
         }
 
@@ -27,7 +27,7 @@ namespace Sorter.Api.Controllers
             var sorter = _sortProvider.GetAlgorithm(dto.SortAlgorithm);
             var sorted = sorter.Sort(dto.Numbers);
 
-            _fileHandler.Write(sorted);
+            _fileManager.Write(sorted);
 
             return Ok(sorted);
         }
@@ -35,7 +35,7 @@ namespace Sorter.Api.Controllers
         [HttpGet]
         public IActionResult GetSorted()
         {
-            var result = _fileHandler.Read<IList<long>>();
+            var result = _fileManager.Read<IList<long>>();
 
             return Ok(result);
         }
