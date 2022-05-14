@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Sorter.Shared.Interfaces;
 using Sorter.Shared.Options;
@@ -9,10 +10,14 @@ namespace Sorter.Infrastructure
     {
         private readonly ReaderWriterLockSlim _writeLock = new();
         private readonly FileManagerOptions _fileManagerOptions;
+        private readonly ILogger _logger;
 
-        public FileManager(IOptions<FileManagerOptions> fileHandlingOptions)
+        public FileManager(
+            IOptions<FileManagerOptions> fileHandlingOptions,
+            ILogger<FileManager> logger)
         {
             _fileManagerOptions = fileHandlingOptions.Value;
+            _logger = logger;
         }
 
         public void Write(object data)
@@ -42,6 +47,10 @@ namespace Sorter.Infrastructure
             try
             {
                 data = File.ReadAllText(_fileManagerOptions.DefaultFileName);
+            }
+            catch (FileNotFoundException)
+            {
+                _logger.LogError("Result file was not found.");
             }
             finally
             {
