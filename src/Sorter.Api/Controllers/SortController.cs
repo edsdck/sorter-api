@@ -8,6 +8,7 @@ namespace Sorter.Api.Controllers
     [ApiVersion("1.0")]
     [Route("api/sort")]
     [ApiController]
+    [Produces("application/json")]
     public class SortController : ControllerBase
     {
         private readonly IFileManager _fileManager;
@@ -22,6 +23,8 @@ namespace Sorter.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Sort(SortDto dto)
         {
             var sorter = _sortProvider.GetAlgorithm(dto.SortAlgorithm);
@@ -29,15 +32,17 @@ namespace Sorter.Api.Controllers
 
             _fileManager.Write(sorted);
 
-            return Ok(sorted);
+            return CreatedAtAction(nameof(GetSorted), null);
         }
 
         [HttpGet]
-        public IActionResult GetSorted()
+        [ProducesResponseType(typeof(IList<long>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IList<long> GetSorted()
         {
             var result = _fileManager.Read<IList<long>>();
 
-            return Ok(result);
+            return result;
         }
     }
 }
