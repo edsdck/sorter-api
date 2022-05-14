@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Options;
-using Sorter.Api;
+using Sorter.Core;
 
 namespace Sorter.Infrastructure
 {
@@ -21,7 +21,7 @@ namespace Sorter.Infrastructure
 
             var serialized = JsonSerializer.Serialize(data);
 
-            _ = _writeLock.TryEnterWriteLock(_fileManagerOptions.DefaultFileLockMs);
+            _ = _writeLock.TryEnterWriteLock(_fileManagerOptions.DefaultFileLockWaitMs);
 
             try
             {
@@ -35,7 +35,7 @@ namespace Sorter.Infrastructure
 
         public T Read<T>()
         {
-            _ = _writeLock.TryEnterReadLock(_fileManagerOptions.DefaultFileLockMs);
+            _ = _writeLock.TryEnterReadLock(_fileManagerOptions.DefaultFileLockWaitMs);
 
             var data = string.Empty;
             try

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sorter.Api;
+using Sorter.Core;
 using Sorter.Core.Interfaces.Sorting;
 using Sorter.Core.Services.Sorting;
 
