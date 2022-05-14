@@ -11,20 +11,21 @@ namespace Sorter.Api.Controllers
     public class SortController : ControllerBase
     {
         private readonly IFileHandler _fileHandler;
-        private readonly ISortContext _sortContext;
+        private readonly ISortProvider _sortProvider;
 
         public SortController(
             IFileHandler fileHandler,
-            ISortContext sortContext)
+            ISortProvider sortContext)
         {
             _fileHandler = fileHandler;
-            _sortContext = sortContext;
+            _sortProvider = sortContext;
         }
 
         [HttpPost]
         public IActionResult Sort(SortDto dto)
         {
-            var sorted = _sortContext.SortByAlgorithm(dto.Numbers, dto.SortAlgorithm);
+            var sorter = _sortProvider.GetAlgorithm(dto.SortAlgorithm);
+            var sorted = sorter.Sort(dto.Numbers);
 
             _fileHandler.Write(sorted);
 
