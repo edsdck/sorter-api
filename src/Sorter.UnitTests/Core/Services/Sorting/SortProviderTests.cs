@@ -32,9 +32,9 @@ namespace Sorter.UnitTests.Core.Services.Sorting
             _strategyMock1.Setup(mock => mock.SortAlgorithm).Returns(SortAlgorithm.BubbleSort);
             _strategyMock2.Setup(mock => mock.SortAlgorithm).Returns(SortAlgorithm.SelectionSort);
 
-            var result = _sortProvider.GetAlgorithm(expected);
+            var actual = _sortProvider.GetAlgorithm(expected);
 
-            Assert.AreEqual(expected, result.SortAlgorithm);
+            Assert.AreEqual(expected, actual.SortAlgorithm);
         }
 
         [Test]
