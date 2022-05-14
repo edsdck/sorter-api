@@ -5,13 +5,13 @@ using Sorter.Core.Interfaces.Sorting;
 
 namespace Sorter.UnitTests.Core.Services.Sorting
 {
-    public abstract class BaseSortStrategyTest<T> where T : ISortStrategy, new()
+    public abstract class BaseSortStrategyTests<T> where T : ISortStrategy, new()
     {
         private T _strategyUnderTest;
 
         private readonly SortAlgorithm CorrectSortAlgorithm;
 
-        public BaseSortStrategyTest(SortAlgorithm correctSortAlgorithm)
+        public BaseSortStrategyTests(SortAlgorithm correctSortAlgorithm)
         {
             CorrectSortAlgorithm = correctSortAlgorithm;
         }
