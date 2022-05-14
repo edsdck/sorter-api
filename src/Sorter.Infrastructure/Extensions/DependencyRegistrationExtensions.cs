@@ -12,8 +12,8 @@ namespace Sorter.Infrastructure.Extensions
             this IServiceCollection serviceCollection,
             IConfiguration configuration)
         {
-            serviceCollection.Configure<FileHandlingOptions>(configuration.GetSection(FileHandlingOptions.FileHandling));
-            serviceCollection.AddSingleton<IFileHandler, FileHandler>();
+            serviceCollection.Configure<FileManagerOptions>(configuration.GetSection(FileManagerOptions.FileHandling));
+            serviceCollection.AddSingleton<IFileManager, FileManager>();
 
             serviceCollection.AddScoped<ISortProvider, SortProvider>();
             serviceCollection.AddScoped<ISortStrategy, BubbleSortStrategy>();

@@ -4,12 +4,12 @@ using Sorter.Api;
 
 namespace Sorter.Infrastructure
 {
-    public class FileHandler : IFileHandler, IDisposable
+    public class FileManager : IFileManager, IDisposable
     {
         private readonly ReaderWriterLockSlim _writeLock = new();
-        private readonly FileHandlingOptions _fileHandlingOptions;
+        private readonly FileManagerOptions _fileHandlingOptions;
 
-        public FileHandler(IOptions<FileHandlingOptions> fileHandlingOptions)
+        public FileManager(IOptions<FileManagerOptions> fileHandlingOptions)
         {
             _fileHandlingOptions = fileHandlingOptions.Value;
         }
@@ -53,7 +53,6 @@ namespace Sorter.Infrastructure
         public void Dispose()
         {
             _writeLock.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

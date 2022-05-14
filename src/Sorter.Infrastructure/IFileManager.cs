@@ -1,6 +1,6 @@
 ﻿namespace Sorter.Infrastructure
 {
-    public interface IFileHandler
+    public interface IFileManager
     {
         void Write(object data);
 

@@ -1,6 +1,6 @@
 ﻿namespace Sorter.Api
 {
-    public class FileHandlingOptions
+    public class FileManagerOptions
     {
         public const string FileHandling = "FileHandling";
 

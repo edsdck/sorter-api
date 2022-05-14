@@ -10,11 +10,11 @@ namespace Sorter.Api.Controllers
     [ApiController]
     public class SortController : ControllerBase
     {
-        private readonly IFileHandler _fileHandler;
+        private readonly IFileManager _fileHandler;
         private readonly ISortProvider _sortProvider;
 
         public SortController(
-            IFileHandler fileHandler,
+            IFileManager fileHandler,
             ISortProvider sortContext)
         {
             _fileHandler = fileHandler;
